@@ -1,0 +1,173 @@
+<html>
+
+<head>
+
+<title>Validation Tool</title>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="./css/stars.css">
+<link rel="icon" href="./img/VTT.png">
+
+<noscript>Javascript isn"t working!</noscript>
+<script src="./team.js"></script>
+<script src="./js/carriers.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/clipboard.js"></script>
+</head>
+
+<body class="body">
+
+<div class="stars-carrier">
+<div id="stars_sm"></div>
+<div id="stars_md"></div>
+<div id="stars_lg"></div>
+</div>
+
+<div class="ssnl_bt"><center><img id="ssnl_bt_img"></center></div>
+
+<div class="ssnl2_wrap">
+<div class="ssnl2" id="ssnl_lt"><img draggable="false" id="ssnl_lt_img"></div>
+<div class="ssnl2" id="ssnl_lt_underOver"><img draggable="false" id="ssnl_lt_underOver_img"></div>
+<div class="ssnl2" id="ssnl_lt_over"><img draggable="false" id="ssnl_lt_over_img"></div>
+</div>
+
+<div class="cnv-carrier" id="cnv-carrier" style="display: block;">
+<canvas id="fw-canvas" style="display: none;"></canvas>
+<canvas id="val-canvas" style="display: none;"></canvas>
+</div>
+
+<div class="cnv-carrier" id="val-carrier" style="display: none;">
+</div>
+
+<div class="debug-menu" id="debug-menu" style="display: none;"><b>Debug Menu</b>
+<br />
+<br />
+<i><a href="#" onclick="fillBlanks()">> Fill template with "test"</a></i>
+<br />
+<i><a href="#" onclick="doSlide()">> Slide the window</a></i>
+<br/ >
+<i><a href="#" onclick="toggleFun()">> Toggle Fun</a></i>
+<br/ >
+<i><a href="#" onclick="#">> Order #B14</a></i>
+<br/ >
+<i><a href="#" onclick="#">> Order #K31</a></i>
+<br/ >
+<i><a href="#" onclick="#">> Order #M25</a></i>
+<br/ >
+<i><a href="#" onclick="#">> Order #M31</a></i>
+</div>
+
+<div id="funbox">
+<div id="boxframe" style="transform: translate(0%, 0%);">
+
+<div id="ssnl_bl" class="ssnl"><img draggable="false" id="ssnl_bl_img"></div>
+<div id="ssnl_tr" class="ssnl"><img draggable="false" id="ssnl_tr_img"></div>
+
+<div id="wrapper" class="wrapper">
+
+<div class="header"><text><center>~ Validation Tool ~</center></text><div title="Turn spacers off" class="space-button" id="space-button"></div></div>
+
+<form id="template-form">
+<div class="form-group">
+	<label class="main-label" for="how-obtained">How cover details obtained - </label>
+	<input class="text-box-full inputText" name="how-obtained" id="how-obtained" />
+</div>
+<div class="form-group">
+	<br/>
+	<label class="main-label" for="carrier">Underwriter - </label>
+	<select class="text-box-full inputText" id="carrier"></select>
+</div>
+<div class="form-group">
+	<label class="main-label" for="scheme">Scheme - </label>
+	<input class="text-box-full inputText" id="scheme" />
+</div>
+<div class="form-group">
+	<br/>
+	<label class="main-label" for="inc-renewal">Inception/Renewal Date - </label>
+	<input class="text-box-full inputText" id="inc-renewal" />
+</div>
+<div class="form-group">
+	<label class="main-label" for="jph">Joint Policyholder(s) - </label>
+	<textarea class="inputText" id="jph" /></textarea>
+</div>
+<div class="form-group">
+	<br/>
+	<div class="checkbox-carrier">
+		<input class="text-box-shared  inputNumeric" id="bui-si" />
+		<div style="float:left;">
+			<input class="inputCheckbox" type="checkbox" id="bui-ad-q" />
+			<label class="q-label" for="bui-ad-q">AD? </label>
+		</div>
+	</div>	
+	<label class="main-label" for="bui-si">Buildings SI - </label>
+</div>
+<div class="form-group">
+	<div class="checkbox-carrier">
+		<input class="text-box-shared inputNumeric" id="con-si" />
+		<div style="float:left;">
+			<input class="inputCheckbox" type="checkbox" id="con-ad-q" />
+			<label class="q-label" for="con-ad-q">AD? </label>
+		</div>
+	</div>
+	<label class="main-label" for="con-si">Contents SI - </label>
+</div>
+<div class="form-group">
+	<label class="main-label" for="trace-si">Trace and Access cover - </label>
+	<input class="text-box-numeric inputNumeric" id="trace-si" />
+</div>
+<div class="form-group">
+	<label class="main-label" for="pp-si">PP/PB SI - </label>
+	<input class="text-box-numeric inputNumeric" id="pp-si" />
+</div>
+<div class="form-group">
+	<label class="main-label" for="unspec-si">Unspecified Cover - </label>
+	<input class="text-box-numeric inputNumeric" id="unspec-si" />
+</div>
+<div class="form-group">
+	<label class="main-label" for="spec-si-items">Specified Cover/Items - </label>
+	<textarea class="inputText" id="spec-si-items"></textarea>
+</div>
+<div class="form-group">
+	<br/>
+	<label class="main-label" for="standard-xs">Standard Excess incl. EOW, etc. - </label>
+	<input class="text-box-numeric inputText" id="standard-xs" />
+</div>
+<div class="form-group">
+	<label class="main-label" for="voluntary-xs">Voluntary Excess - </label>
+	<input class="text-box-numeric inputNumeric" id="voluntary-xs" />
+</div>
+<div class="form-group">
+	<br/>
+	<label class="main-label" for="prev-claims">Previous Claims - </label>
+	<textarea class="inputText" id="prev-claims"></textarea>
+</div>
+<div class="form-group">
+	<label class="main-label" for="endorsements">Endorsements - </label>
+	<textarea class="inputText" id="endorsements"></textarea>
+</div>
+<div class="form-group">
+<br/>
+<button id="copy-button" type="button" class="button button-fast" onclick="processFlow()">Copy to Clipboard</button>
+<button id="reset-button" tabindex="-1" type="button" class="button button-fast">Hold to Reset</button>
+<br/>
+</div>
+
+</form>
+
+
+
+</div>
+</div>
+</div>
+
+
+</body>
+<script src="./js/ssnl.ss.js"></script>
+<script src="./js/ssnl.min.js"></script>
+<script src="./js/ssnl.fw.js"></script>
+<script src="./js/ssnl.val.js"></script>
+<script src="./js/index.js"></script>
+<script src="./js/functions.js"></script>
+</html>
